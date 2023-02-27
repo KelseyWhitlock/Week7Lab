@@ -21,4 +21,13 @@ public class RoleService {
         return roles;    
     }
     
+    public int get(Role role) throws Exception{
+        String name = role.getRoleName();
+        if(name.equals("regular user")){
+            return 2;
+        }else{
+            return 1;
+        }
+    }
+    
 }

@@ -12,11 +12,11 @@ import java.io.Serializable;
  * @author Kelsey
  */
 public class User implements Serializable {
-    String email;
-    String firstName;
-    String lastName;
-    String password;
-    Role role;
+   private String email;
+   private String firstName;
+   private String lastName;
+   private  String password;
+   private  Role role;
     
     public User(){
         
@@ -27,6 +27,13 @@ public class User implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
+        this.role = role;
+    }
+
+    public User(String email, String firstName, String lastName, Role role) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.role = role;
     }
       public String getEmail() {

@@ -10,32 +10,39 @@ package models;
  * @author Kelsey
  */
 public class Role {
-    private int id;
-    private String name;
+    private int roleId;
+    private String roleName;
     
     public Role(){
         
     }
 
-    public Role(int id, String name) {
-        this.id = id;
-        this.name = name;
+    public Role(int roleId) {
+        this.roleId = roleId;
+        
     }
 
-    public int getId() {
-        return id;
+    public Role(int roleId, String roleName) {
+        this.roleId = roleId;
+        this.roleName = roleName;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public String getName() {
-        return name;
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getRoleName() {
+        return roleName;
     }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+  
     
 }
