@@ -31,10 +31,10 @@ public class UserServlet extends HttpServlet {
         String touch = request.getParameter("action");
         try{
             if(touch != null && touch.equals("edit")){
-                String mail = request.getParameter("email");
-                User onUser = userS.get(mail);
+                String email = request.getParameter("email");
+                User onUser = userS.get(email);
                 request.setAttribute("onUser", onUser);
-                request.setAttribute("email",userS.get(mail));
+                request.setAttribute("email",userS.get(email));
             }else if(touch != null && touch.equals("delete")){
                 String mail = request.getParameter("email");
                 userS.delete(mail);
@@ -60,18 +60,18 @@ public class UserServlet extends HttpServlet {
             throws ServletException, IOException {
        UserService userS = new UserService();
        String touch = request.getParameter("action");
-       String mail = request.getParameter("email");
-       String firstN = request.getParameter("firstName");
-       String lastN = request.getParameter("lastName");
+       String email = request.getParameter("email");
+       String firstName = request.getParameter("firstName");
+       String lastName = request.getParameter("lastName");
        String uRole = request.getParameter("role");
         Role roles = new Role(uRole);
         
         try{
             if(touch.equals("add")){
-                userS.insert(mail, firstN, lastN, roles);
+                userS.insert(email, firstName, lastName, roles);
             }
             if(touch.equals("update")){
-                userS.insert(mail, firstN, lastN, roles);
+                userS.insert(email, firstName, lastName, roles);
             }
             List<User> users = userS.getAll();
             request.setAttribute("users", users);

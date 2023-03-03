@@ -35,11 +35,39 @@
                         </c:otherwise>
                     </c:choose>
                             <td>
-                               
-                
+                                <c:url value="/User" var="edit">
+                                    <c:param name="email" value="${user.email}"/>
+                                    <c:param name="action" value="edit"/>
+                                </c:url>
+                                <a href="{edit}">Edit</a>
                             </td>
+                            <td>
+                                <c:url value="/User" var="delete">
+                                     <c:param name="email" value="${user.email}"/>
+                                    <c:param name="action" value="delete"/> 
+                                </c:url>
+                                <a href="{delete}">Delete</a>
+                           </td>
                 </tr>
             </c:forEach>
         </table>
+        <c:if test="${userS eq null}">
+            <h2>Add User</h2><br><br>
+            <form action="users" method="post">
+                <input type="hidden" name="email" value="${userS.email}">
+                Email:${userS.email}<br>
+                First Name: <input type="text" name="firstName" required value="${userS.firstName}"> <br>
+                Last Name: <input type="text" name="lastName" required value="${userS.lastName}"> <br>
+                Password: <input type="password" name="password" required value="${userS.password}"> <br>
+                Role:<select name="role">
+                    <option value="system admin"> System Admin</option>
+                    <option value="regular user"> Regular User</option>  
+                </select> <br>
+                <input type="hidden" name="action" value="update">
+                <input type="submit" value="Update">
+                <a href="\User" class="button">Cancel</a>
+            </form>
+        </c:if>
+            ${message}
     </body>
 </html>
