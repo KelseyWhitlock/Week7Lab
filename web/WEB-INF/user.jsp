@@ -21,7 +21,7 @@
                 <td>Last Name</td>
                 <td>Role</td>
             </tr>
-            <c:forEach items="${users}" var="users"> 
+            <c:forEach items="${users}" var="user"> 
                 <tr>
                     <td>${user.email}</td>
                     <td>${user.firstName}</td>
@@ -53,7 +53,7 @@
         </table>
         <c:if test="${userS eq null}">
             <h2>Add User</h2><br><br>
-            <form action="users" method="post">
+            <form action="user" method="post">
                 <input type="hidden" name="email" value="${userS.email}">
                 Email:${userS.email}<br>
                 First Name: <input type="text" name="firstName" required value="${userS.firstName}"> <br>
