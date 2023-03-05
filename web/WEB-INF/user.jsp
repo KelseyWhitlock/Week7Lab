@@ -35,14 +35,14 @@
                         </c:otherwise>
                     </c:choose>
                             <td>
-                                <c:url value="/user" var="edit">
+                                <c:url value="/User" var="edit">
                                     <c:param name="email" value="${user.email}"/>
                                     <c:param name="action" value="edit"/>
                                 </c:url>
                                 <a href="{edit}">Edit</a>
                             </td>
                             <td>
-                                <c:url value="/user" var="delete">
+                                <c:url value="/User" var="delete">
                                      <c:param name="email" value="${user.email}"/>
                                     <c:param name="action" value="delete"/> 
                                 </c:url>

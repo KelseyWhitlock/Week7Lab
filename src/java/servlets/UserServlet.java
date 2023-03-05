@@ -44,7 +44,7 @@ public class UserServlet extends HttpServlet {
                 }
             }
             List<User> users = userS.getAll();
-            request.setAttribute("users", users);
+            request.setAttribute("user", users);
             List<Role> roles = roleS.getAll();
             request.setAttribute("roles", roles);
         }catch(Exception ex){
@@ -74,7 +74,7 @@ public class UserServlet extends HttpServlet {
                 userS.insert(email, firstName, lastName, roles);
             }
             List<User> users = userS.getAll();
-            request.setAttribute("users", users);
+            request.setAttribute("user", users);
         }catch(Exception ex){
              Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("message", "error");
