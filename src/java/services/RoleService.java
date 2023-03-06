@@ -23,10 +23,10 @@ public class RoleService {
     
     public int get(Role role) throws Exception{
         String name = role.getRoleName();
-        if(name.equals("regular user")){
-            return 2;
-        }else{
+        if(name.equals("system admin")){
             return 1;
+        }else{
+            return 2;
         }
     }
     

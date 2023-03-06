@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import models.Role;
 import models.User;
 import services.RoleService;
@@ -33,7 +34,7 @@ public class UserServlet extends HttpServlet {
             if(touch != null && touch.equals("edit")){
                 String email = request.getParameter("email");
                 User onUser = userS.get(email);
-                request.setAttribute("onUser", onUser);
+                request.setAttribute("userS", onUser);
                 request.setAttribute("email",userS.get(email));
             }else if(touch != null && touch.equals("delete")){
                 String mail = request.getParameter("email");

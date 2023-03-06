@@ -43,8 +43,9 @@
                             </td>
                             <td>
                                 <c:url value="/users" var="delete">
-                                     <c:param name="email" value="${user.email}"/>
-                                    <c:param name="action" value="delete"/> 
+                                <td><a href="User?action=edit&amp;key=${user.email}">Edit</a></td>
+                                 <td><a href="User?action=delete&amp;key=${user.email}">Edit</a>
+                                    
                                 </c:url>
                                 <a href="{delete}">Delete</a>
                            </td>
@@ -53,7 +54,7 @@
         </table>
         <c:if test="${userS eq null}">
             <h2>Add User</h2><br><br>
-            <form action="user" method="post">
+            <form action="User" method="post">
                 <input type="hidden" name="email" value="${userS.email}">
                 Email:${userS.email}<br>
                 First Name: <input type="text" name="firstName" required value="${userS.firstName}"> <br>
