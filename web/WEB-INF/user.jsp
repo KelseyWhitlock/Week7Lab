@@ -28,10 +28,10 @@
                     <td>${user.lastName}</td>
                     <c:choose>
                         <c:when test="${user.getRole.getRoleID() == 1}">
-                            <td>Regular User</td>  
+                            <td>System Admin</td>  
                         </c:when>
                         <c:otherwise>
-                            <td>System Admin</td>
+                            <td>Regular Users</td>
                         </c:otherwise>
                     </c:choose>
                             <td>
