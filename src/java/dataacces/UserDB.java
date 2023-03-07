@@ -81,14 +81,13 @@ public class UserDB {
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();
         PreparedStatement ps = null;
-        String sql = "INSERT INTO user  VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO user  VALUES (?, ?, ?, ?)";
         
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, user.getEmail());
             ps.setString(2,  user.getFirstName());
             ps.setString(3, user.getLastName());
-            ps.setString(4, user.getPassword());
             ps.setInt(5, user.getRole().getRoleId());
             ps.executeUpdate();
         } finally {
