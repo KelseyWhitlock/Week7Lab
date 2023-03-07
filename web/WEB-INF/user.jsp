@@ -27,7 +27,7 @@
                     <td>${user.firstName}</td>
                     <td>${user.lastName}</td>
                     <c:choose>
-                        <c:when test="${user.getRole.getRoleID() == 2}">
+                        <c:when test="${user.getRole.getRoleID() == 1}">
                             <td>Regular User</td>  
                         </c:when>
                         <c:otherwise>
