@@ -15,19 +15,19 @@ import dataacces.RoleDB;
  * @author Kelsey
  */
 public class RoleService {
-    public List<Role> getAll() throws Exception{
-        RoleDB roleDB = new RoleDB();
-        List<Role> roles = roleDB.getAll();
-        return roles;    
-    }
+  public List<Role> getAll() throws Exception{
+      RoleDB roleDB = new RoleDB();
+      List<Role> roles = roleDB.getAll();
+      return roles;
+  }
+  public int get(Role role) throws Exception{
+      String roleName = role.getRoleName();
+      if(roleName.equals("systemA")){
+          return 1;
+      }else{
+          return 2;
+      }
+  }
     
-    public int get(Role role) throws Exception{
-        String name = role.getRoleName();
-        if(name.equals("system admin")){
-            return 1;
-        }else{
-            return 2;
-        }
-    }
     
 }

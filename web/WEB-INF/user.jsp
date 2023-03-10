@@ -12,8 +12,8 @@
         <title>User</title>
     </head>
     <body>
-        <h1>Manager Users</h1>
-        ${message}
+        <h1>Manage Users</h1>
+        ${errorMessage}
         <table border="1">
             <tr>
                 <td>Email</td>
@@ -21,54 +21,67 @@
                 <td>Last Name</td>
                 <td>Role</td>
             </tr>
-            <c:forEach items="${users}" var="user"> 
+            <c:forEach items="${userList}" var="userList">
                 <tr>
-                    <td>${user.email}</td>
-                    <td>${user.firstName}</td>
-                    <td>${user.lastName}</td>
+                    <td>${userList.email}</td>
+                    <td>${userList.firstName}</td>
+                    <td>${userList.lastName}</td>
                     <c:choose>
-                        <c:when test="${user.getRole.getRoleID() == 1}">
-                            <td>System Admin</td>  
+                        <c:when test="${userList.getRole().getRoleId() == 1}">
+                            <td>system admin</td>
                         </c:when>
                         <c:otherwise>
-                            <td>Regular Users</td>
+                            <td>regular user</td>
                         </c:otherwise>
                     </c:choose>
                             <td>
-                                <c:url value="/user" var="edit">
-                                    <c:param name="email" value="${user.email}"/>
-                                    <c:param name="action" value="edit"/>
+                                <c:url value="/User" var="editUsers">
+                                    <c:param name="email" value="${userList.email}"/>
+                                     <c:param name="action" value="edit"/>
                                 </c:url>
-                                <a href="{edit}">Edit</a>
+                                <a href=${editUsers}>Edit</a>
                             </td>
                             <td>
-                                <c:url value="/user" var="delete">
-                                <td><a href="User?action=edit&amp;key=${user.email}">Edit</a></td>
-                                 <td><a href="User?action=delete&amp;key=${user.email}">Delete</a>
-                                    
+                                <c:url value="/User" var="deleteUsers">
+                                    <c:param name="email" value="${userList.email}"/>
+                                     <c:param name="action" value="delete"/>
                                 </c:url>
-                                <a href="{delete}">Delete</a>
-                           </td>
-                </tr>
+                                <a href=${deleteUsers}>Delete</a>  
+                          </td>
+                </tr>   
             </c:forEach>
         </table>
-        <c:if test="${userS eq null}">
-            <h2>Add User</h2><br><br>
-            <form action="User" method="post">
-               Email:<input  name="email" value="${userS.email}">
-                <br>
-                First Name: <input type="text" name="firstName" required value="${userS.firstName}"> <br>
-                Last Name: <input type="text" name="lastName" required value="${userS.lastName}"> <br>
-                Password: <input type="password" name="password" required value="${userS.password}"> <br>
-                Role:<select name="role">
-                    <option value="system admin"> System Admin</option>
-                    <option value="regular user"> Regular User</option>  
+        <c:if test="${userInfo eq null}">
+            <h2>Add User</h2><br>
+            <form action="users" method="post">
+                Email <input type="text" name="email" required><br>
+                First Name <input type="text" name="firstName" required><br>
+                Last Name <input type="text" name="lastName" required><br>
+                Password <input type="password" name="password" required><br>
+                Role <select name="roleName">
+                    <option value="systemA">system admin</option>
+                    <option value="regularU">regular user</option>
                 </select> <br>
-                <input type="hidden" name="action" value="update">
-                <input type="submit" value="Update">
-                <a href="/user" class="button">Cancel</a>
+                <input type="hidden" name="action" value="add">
+                <input type="submit" value="Add User">
             </form>
         </c:if>
-            ${message}
+            <c:if test="${userInfo ne null}">
+                <h2>Edit Users</h2><br>
+                <form action="users" method="post">
+                    <input type="hidden" name="email" value="${userInfo.email}">
+                    Email ${userInfo.email}<br>
+                    First Name <input type="text" name="firstName" value="${userInfo.firstName}" required> <br>
+                    Last Name <input type="text" name="lastName" value="${userInfo.lastName}" required> <br>
+                    Password <input type="password" name="password" required><br>
+                    Role <select name="roleName">
+                    <option value="systemA">system admin</option>
+                    <option value="regularU">regular user</option>
+                </select> <br>
+                <input type="hidden" name="action" value="change">
+                <input type="submit" value="Update">
+                <a href="\user" class="button">Cancel</a>
+                </form>  
+            </c:if>
     </body>
 </html>

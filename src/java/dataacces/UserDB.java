@@ -12,125 +12,109 @@ import java.util.ArrayList;
 import java.util.List;
 import models.Role;
 import models.User;
+import services.RoleService;
 
 /**
  *
  * @author Kelsey
  */
 public class UserDB {
- 
-   public List<User> getAll() throws Exception {
+    RoleService roleInfo = new RoleService();
+    
+    public List<User> getAll()throws Exception{
         List<User> users = new ArrayList<>();
-        ConnectionPool cp = ConnectionPool.getInstance();
-        Connection con = cp.getConnection();
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection con = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         
         String sql = "SELECT * FROM user";
-        
-        try {
+        try{
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            while (rs.next()) {
+            
+            while(rs.next()){
                 String email = rs.getString(1);
                 String firstName = rs.getString(2);
-                String secondName = rs.getString(3);
+                String lastName = rs.getString(3);
+                String password = rs.getString(4);
                 int roleId = rs.getInt(5);
                 Role role = new Role(roleId);
-                User user = new User(email,firstName,secondName,role);
+                User user = new User(email,firstName,lastName,password,role);
                 users.add(user);
             }
-        } finally {
+        }finally{
             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
-            cp.freeConnection(con);
+            pool.freeConnection(con);  
         }
-
-        return users;
+        return users;   
     }
-
-    public User get(String email) throws Exception {
+    
+    public User get(String email) throws Exception{
         User user = null;
-        ConnectionPool cp = ConnectionPool.getInstance();
-        Connection con = cp.getConnection();
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection con = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM user WHERE email=?";
         
-        try {
+        String sql = "SELECT * FROM user WHERE email=?";
+        try{
             ps = con.prepareStatement(sql);
             ps.setString(1, email);
             rs = ps.executeQuery();
-            if (rs.next()) {
+            while(rs.next()){
                 String firstName = rs.getString(2);
                 String lastName = rs.getString(3);
+                String password = rs.getString(4);
                 int roleId = rs.getInt(5);
                 Role role = new Role(roleId);
-                user = new User(email, firstName, lastName, role);
+                user = new User(email,firstName,lastName,password,role);
             }
-        } finally {
-            DBUtil.closeResultSet(rs);
+        }finally{
+             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
-            cp.freeConnection(con);
+            pool.freeConnection(con);  
         }
-        
-        return user;
+        return user;  
     }
-
-    public void insert(User user) throws Exception {
-        ConnectionPool cp = ConnectionPool.getInstance();
-        Connection con = cp.getConnection();
+    
+    public void insert(User user) throws Exception{
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection con = pool.getConnection();
         PreparedStatement ps = null;
-        String sql = "INSERT INTO user  VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO user(email, first_name, last_name, password, role) VALUES(?,?,?,?,?)";
         
-        try {
-            ps = con.prepareStatement(sql);
-            ps.setString(1, user.getEmail());
-            ps.setString(2,  user.getFirstName());
-            ps.setString(3, user.getLastName());
-            ps.setInt(5, user.getRole().getRoleId());
-            ps.executeUpdate();
-        } finally {
+        try{
+           ps = con.prepareStatement(sql);
+           ps.setString(1, user.getEmail());
+           ps.setString(2, user.getFirstName());
+           ps.setString(3, user.getLastName());
+           ps.setString(4, user.getPassword());
+           ps.setInt(5, roleInfo.get(user.getRole()));
+           ps.executeUpdate();
+        }finally{
             DBUtil.closePreparedStatement(ps);
-            cp.freeConnection(con);
-        }
-    }
-
-    public void update(User user) throws Exception {
-        ConnectionPool cp = ConnectionPool.getInstance();
-        Connection con = cp.getConnection();
-        PreparedStatement ps = null;
-        String sql = "UPDATE note SET first_name=?, last_name=?, password=?, role=? WHERE email=?";
-        
-        try {
-            ps = con.prepareStatement(sql);
-            ps.setString(1, user.getFirstName());
-            ps.setString(2, user.getLastName());
-            ps.setString(3, user.getPassword());
-            ps.setInt(4, user.getRole().getRoleId());
-            ps.setString(5, user.getEmail());
-            ps.executeUpdate();
-        } finally {
-            DBUtil.closePreparedStatement(ps);
-            cp.freeConnection(con);
-        }
-    }
-
-    public void delete(User user) throws Exception {
-        ConnectionPool cp = ConnectionPool.getInstance();
-        Connection con = cp.getConnection();
-        PreparedStatement ps = null;
-        String sql = "DELETE FROM user WHERE email=?";
-        
-        try {
-            ps = con.prepareStatement(sql);
-            ps.setString(1, user.getEmail());
-            ps.executeUpdate();
-        } finally {
-            DBUtil.closePreparedStatement(ps);
-            cp.freeConnection(con);
+            pool.freeConnection(con);
         }
     }
     
+    public void delete(User user) throws Exception{
+         ConnectionPool pool = ConnectionPool.getInstance();
+        Connection con = pool.getConnection();
+        PreparedStatement ps = null;
+        String sql = "DELETE FROM user WHERE email=?";
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setString(1, user.getEmail());
+            ps.executeUpdate();
+        }finally{
+            DBUtil.closePreparedStatement(ps);
+            pool.freeConnection(con);
+        }
+    }
+ 
+ 
+        
 
 }

@@ -5,49 +5,44 @@
  */
 package models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Kelsey
  */
-public class Role {
-    private int roleId;
-    private String roleName;
+public class Role implements Serializable {
+    private int id;
+    private String name;
     
     public Role(){
         
     }
 
-    public Role(String roleName) {
-        this.roleName = roleName;
-    }
-    
-
-    public Role(int roleId) {
-        this.roleId = roleId;
-        
+    public Role(int id) {
+        this.id = id;
     }
 
-    public Role(int roleId, String roleName) {
-        this.roleId = roleId;
-        this.roleName = roleName;
+    public int getId() {
+        return id;
     }
 
-    public int getRoleId() {
-        return roleId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public String getName() {
+        return name;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public Role(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
-
-  
+      
     
 }

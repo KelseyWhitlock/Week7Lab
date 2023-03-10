@@ -18,53 +18,55 @@ import models.Role;
  */
 public class RoleDB {
      public List<Role> getAll() throws Exception {
-        List<Role> roles= new ArrayList<>();
-        ConnectionPool cp = ConnectionPool.getInstance();
-        Connection con = cp.getConnection();
+         List<Role> roles = new ArrayList<>();
+         ConnectionPool pool = ConnectionPool.getInstance();
+        Connection con = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
         
-        String sql = "SELECT * FROM role";
+        String sql= "SELECT * FROM role";
         
-        try {
+        try{
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            while (rs.next()) {
+            while(rs.next()){
                 int id = rs.getInt(1);
-                String name = rs.getString(2);
-                Role role = new Role(id, name);
+                String roleName = rs.getString(2);
+                Role role= new Role(id,roleName);
                 roles.add(role);
-            }
-        } finally {
-            DBUtil.closeResultSet(rs);
+            }    
+        }finally{
+         DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
-            cp.freeConnection(con);
-        }
-
+            pool.freeConnection(con);
+     }
         return roles;
-    }
-
-    public Role get(int id) throws Exception {
-        Role role = null;
-        ConnectionPool cp = ConnectionPool.getInstance();
-        Connection con = cp.getConnection();
+     }
+     
+     public Role get(int id) throws Exception{
+         Role role = null;
+         ConnectionPool pool = ConnectionPool.getInstance();
+        Connection con = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM user WHERE role_id=?";
         
-        try {
+        String sql = "SELECT * FROM  user WHERE role_id=?";
+        
+        try{
             ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-               String name = rs.getString(2);
-                role = new Role(id,name);
-            }
-        } finally {
+            ps.setInt(1,id);
+           rs = ps.executeQuery();
+           
+           while(rs.next()){
+               String roleName = rs.getString(2);
+               role = new Role(id, roleName);
+           }
+        }finally{
             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
-            cp.freeConnection(con);
+            pool.freeConnection(con); 
         }
-        
         return role;
-    }
+     }
+      
 }
