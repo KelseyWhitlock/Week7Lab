@@ -22,7 +22,7 @@ public class UserService {
     }
     public User get(String email)throws Exception{
        UserDB userDB = new UserDB();
-       User user = userDB.getAll(email);
+       User user = userDB.get(email);
        return user; 
     }
     public void insert(String email, String firstName, String lastName, String password, Role role) throws Exception{

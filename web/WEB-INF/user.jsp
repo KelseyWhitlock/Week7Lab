@@ -57,7 +57,7 @@
                 Email <input type="text" name="email" required><br>
                 First Name <input type="text" name="firstName" required><br>
                 Last Name <input type="text" name="lastName" required><br>
-                Password <input type="password" name="password" required><br>
+                Password <input type="text" name="password" required><br>
                 Role <select name="roleName">
                     <option value="systemA">system admin</option>
                     <option value="regularU">regular user</option>
@@ -73,7 +73,7 @@
                     Email ${userInfo.email}<br>
                     First Name <input type="text" name="firstName" value="${userInfo.firstName}" required> <br>
                     Last Name <input type="text" name="lastName" value="${userInfo.lastName}" required> <br>
-                    Password <input type="password" name="password" required><br>
+                    Password <input type="text" name="password" required><br>
                     Role <select name="roleName">
                     <option value="systemA">system admin</option>
                     <option value="regularU">regular user</option>
