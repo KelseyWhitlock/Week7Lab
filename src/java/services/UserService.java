@@ -30,7 +30,7 @@ public class UserService {
         UserDB userDB = new UserDB();
         userDB.insert(user);     
     }
-    public void change(String email,String firstName,String lastName,String password, Role role) throws Exception{
+    public void update(String email,String firstName,String lastName,String password, Role role) throws Exception{
         User user = new User(email, firstName, lastName,password, role);
         UserDB userDB = new UserDB();
         userDB.update(user);

@@ -36,14 +36,19 @@ public class UserServlet extends HttpServlet {
                 request.setAttribute("userInfo", userInfo);
                 request.setAttribute("email", userInfo.getEmail());     
             }
-            if(action != null && action.equals("delete")){
+            else if(action != null && action.equals("delete")){
                 String email = request.getParameter("email");
                 userId.delete(email);
-                List<User> users = userId.getAll();
+                 List<User> users = userId.getAll();
+                 if(users.isEmpty()){
+                     request.setAttribute("errorMessage","Add a user.");
+                 }
+                
+            }
+            List<User> users = userId.getAll();
                 request.setAttribute("users", users);
                 List<Role> role = roleInfo.getAll();
-                request.setAttribute("roleName",role);
-            }
+                request.setAttribute("role",role);
             
         }catch(Exception ex){
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE,null, ex);
@@ -62,21 +67,24 @@ public class UserServlet extends HttpServlet {
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
             String password = request.getParameter("password");
-            String rolePlace = request.getParameter("roleName");
+            String rolePlace = request.getParameter("role");
             Role role = new Role(rolePlace);
            try{
                if(action.equals("add")){
                    userId.insert(email, firstName, lastName, password,role);
                }
-               if(action.equals("change")){
-                   userId.insert(email, firstName, lastName,password, role);
+               if(action.equals("update")){
+                   userId.update(email, firstName, lastName,password, role);
                }
+               List<User> users = userId.getAll();
+                request.setAttribute("users", users);
                
            }catch(Exception ex){
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE,null, ex);
             request.setAttribute("errorMessage", "There is a error");
         }
   
+           getServletContext().getRequestDispatcher("/WEB-INF/user.jsp").forward(request, response);
  
 }  
     }
